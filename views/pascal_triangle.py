@@ -11,11 +11,16 @@ _info = info_format.InfoDTO('Pascal\'s triangle', '/pascal_triangle', 'It serves
 def get_info():
     return _info
 
-# TODO 
-#
-#
-#
-
-
 def pascal_triangle():
-    return render_template('algorithms/binomial_theorem.html', title = _info.name)
+    return render_template('algorithms/pascal_triangle.html', title = _info.name)
+
+def pascal_triangle_api():
+    if request.method == 'POST' and 'number' in request.json:
+        number = request.json['number']
+        try:
+            number = int(number)
+            get_pascal_triangle_cached(int(number))
+            result = get_cache()[:number]
+        except Exception:
+            result = []
+        return {'result': result}

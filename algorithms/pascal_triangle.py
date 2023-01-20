@@ -28,6 +28,8 @@ cache = [[1],
         [1, 2, 1], 
         [1, 3, 3, 1],
         ]
+def get_cache():
+    return cache
 
 def get_pascal_triangle_cached(number):
     if number < 0:

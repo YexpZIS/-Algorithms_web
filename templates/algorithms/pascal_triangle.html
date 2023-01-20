@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script src="{{ url_for('static', filename= 'js/modules/request-module.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'js/pascal_triangle.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="number">Line number</label>
+            <input type="text" class="form-control" id="number" aria-describedby="number" placeholder="Enter line number">
+            <small id="number" class="form-text text-muted">Examples: 0, 1, 5, 15, ..., 100 </small>
+        </div>
+            
+        <button onclick="send()" class="btn btn-outline-dark">Submit</button>
+    </div>
+  </div>
+
+  <div class="card mt-2">
+    <div class="card-body">
+        <div>
+            <div class="d-inline">Result:</div>
+            <div class='d-inline'></div>
+        </div>
+
+        <div class="horizontal-scrollable">
+        <table class="table" id="result">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Binomial coefficients</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">0</th>
+                <td class="text-center">1</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td class="text-center">1,1</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td class="text-center">1,2,1</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+  </div>
+
+  
+
+{% endblock %}
