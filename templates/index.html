@@ -2,12 +2,12 @@
 
 {% block content %}
     <div class="row justify-content-center">
-        {% for key, value in items.items() %}
+        {% for item in items %}
         <div class="card m-2" style="width: 18rem;">
             <div class="card-body d-flex flex-column">
-              <h5 class="card-title">{{ value['name'] }}</h5>
-              <p class="card-text text-muted">{{ value['description']}}</p>
-              <a class="btn btn-outline-dark mt-auto fs-5" href="{{ value['link'] }}">Try</a>
+              <h5 class="card-title">{{ item.name }}</h5>
+              <p class="card-text text-muted">{{ item.description }}</p>
+              <a class="btn btn-outline-dark mt-auto fs-5" href="{{ item.link }}">Try</a>
             </div>
         </div>
         {% endfor %}

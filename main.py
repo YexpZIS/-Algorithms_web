@@ -1,43 +1,31 @@
 from flask import Flask, redirect, url_for, request, render_template, json
 from collections import OrderedDict
 
-from algorithms.binomial_theorem import open_brackets
-
-from views import views
+from views import binomial_theorem, pascal_triangle
 
 
 app = Flask(__name__)
 
-ALGORITHMS = OrderedDict({'binomial_theorem': {'name': 'Binomial theorem', 'link': '/binomial_theorem', 'description': 'Used to decompose into separate terms a non-negative integer power of the sum of two variables'},
-            'pascal_triangle': {'name': 'Pascal\'s triangle', 'link': '/pascal_triangle', 'description': 'It serves to raise a binomial to any power. Consists of binomial coefficients.'},
-})
+modules = [binomial_theorem, pascal_triangle]
+ALGORITHMS = []
+for i in modules:
+    ALGORITHMS.append(i.get_info())
+
 
 @app.route('/')
 def index():
     return render_template('index.html', title = 'Algorithms', items=ALGORITHMS)
 
-@app.route('/binomial_theorem')
-def binomial_theorem():
-    return render_template('algorithms/binomial_theorem.html', title = ALGORITHMS['binomial_theorem']['name'])
 
+binom = binomial_theorem.get_info()
+app.add_url_rule(binom.link, view_func=binomial_theorem.binomial_theorem)
+app.add_url_rule('/api' + binom.link, view_func=binomial_theorem.api_binomial_theorem, methods = ['POST'])
 
-@app.route('/api/binomial_theorem', methods = ['POST'])
-def api_binomial_theorem():
-    if request.method == 'POST' and 'expression' in request.json:
-        expression = request.json['expression']
-        
-        
-        try:
-            result = open_brackets(expression)
-        except Exception:
-            result = 'Errore'
-        return {'result' : result}
-
-app.add_url_rule('/test', view_func=views.test)
-
+pascal = pascal_triangle.get_info()
+app.add_url_rule(pascal.link, view_func=pascal_triangle.pascal_triangle)
 
 if __name__ == '__main__':
-    
+
     app.run(debug = True, host='192.168.0.129')
 
 # python -m venv venv
@@ -46,5 +34,5 @@ if __name__ == '__main__':
 # flask --app __init__.py --debug run # auto reload server
 # flask --app __init__.py --debug run --host=192.168.0.129
 
-# TODO: дописать тесты, написать нечеткий поиск(fuzzy_search), доделать сортировки 
+# TODO: дописать тесты, написать нечеткий поиск(fuzzy_search), доделать сортировки
 # + загрузить все на сервер + начать читать книгу
