@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/bootstrap.css') }}">
+    {% block head %}
+    {% endblock %}
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="bg-light">
+    <div class='container'>
+        <div class='d-flex justify-content-center bg-dark rounded-bottom'>
+            <a href="/" class="d-flex align-items-center text-dark text-decoration-none fs-1 text-white">
+                <span>{{ title }}</span>
+            </a>       
+        </div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
