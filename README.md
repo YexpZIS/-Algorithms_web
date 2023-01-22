@@ -15,7 +15,7 @@ There are 3 algorithms to which the application provides access through the web 
 - Pascal triangle
 - Fuzzy search (Levenshtein distance)
 
-API ['POST', 'application/json']:
+#### API ['POST', 'application/json']:
 
     /api/binomial_theorem | {'expression': '(x+y)^2'} -> {'result': 'x^2+xy+y^2'}
     /api/pascal_triangle  | {'number': '3'} -> {'result': [[1], [1,1], [1,2,1]]}
