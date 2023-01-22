@@ -30,5 +30,6 @@ app.add_url_rule(search.link, view_func = fuzzy_search.fuzzy_search)
 app.add_url_rule('/api' + search.link, view_func = fuzzy_search.fuzzy_search_api, methods = ['POST'])
 
 if __name__ == '__main__':
-
-    app.run(debug = True, host='192.168.0.129')
+    import waitress
+    # app.run(debug = True, port=5000)
+    waitress.serve(app, listen='*:5000')
