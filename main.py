@@ -1,12 +1,12 @@
 from flask import Flask, redirect, url_for, request, render_template, json
 from collections import OrderedDict
 
-from views import binomial_theorem, pascal_triangle
+from views import binomial_theorem, pascal_triangle, fuzzy_search
 
 
 app = Flask(__name__)
 
-modules = [binomial_theorem, pascal_triangle]
+modules = [binomial_theorem, pascal_triangle, fuzzy_search]
 ALGORITHMS = []
 for i in modules:
     ALGORITHMS.append(i.get_info())
@@ -25,15 +25,10 @@ pascal = pascal_triangle.get_info()
 app.add_url_rule(pascal.link, view_func = pascal_triangle.pascal_triangle)
 app.add_url_rule('/api' + pascal.link, view_func = pascal_triangle.pascal_triangle_api, methods = ['POST'])
 
+search = fuzzy_search.get_info() 
+app.add_url_rule(search.link, view_func = fuzzy_search.fuzzy_search)
+app.add_url_rule('/api' + search.link, view_func = fuzzy_search.fuzzy_search_api, methods = ['POST'])
+
 if __name__ == '__main__':
 
     app.run(debug = True, host='192.168.0.129')
-
-# python -m venv venv
-# source venv/bin/activate
-# export FLASK_APP='__init__.py'
-# flask --app __init__.py --debug run # auto reload server
-# flask --app __init__.py --debug run --host=192.168.0.129
-
-# TODO: дописать тесты, написать нечеткий поиск(fuzzy_search), доделать сортировки
-# + загрузить все на сервер + начать читать книгу
